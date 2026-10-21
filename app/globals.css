@@ -1,75 +1,11 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) * .6);
-  --radius-md: calc(var(--radius) * .8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-}
-
-:root {
-  color-scheme: dark;
-  --background: oklch(0.13 0.012 270);
-  --foreground: oklch(0.96 0.01 90);
-  --card: oklch(0.17 0.014 270);
-  --card-foreground: oklch(0.96 0.01 90);
-  --popover: oklch(0.17 0.014 270);
-  --popover-foreground: oklch(0.96 0.01 90);
-  --primary: oklch(0.87 0.19 125);
-  --primary-foreground: oklch(0.15 0.03 125);
-  --secondary: oklch(0.22 0.018 270);
-  --secondary-foreground: oklch(0.96 0.01 90);
-  --muted: oklch(0.22 0.018 270);
-  --muted-foreground: oklch(0.62 0.018 270);
-  --accent: oklch(0.25 0.04 125);
-  --accent-foreground: oklch(0.9 0.16 125);
-  --border: oklch(0.32 0.02 270 / 65%);
-  --input: oklch(0.32 0.02 270);
-  --ring: oklch(0.87 0.19 125);
-  --radius: 0.85rem;
-}
-
-@layer base {
-  * { @apply border-border outline-ring/50; }
-  html { scroll-behavior: smooth; }
-  body { @apply bg-background text-foreground; font-family: Arial, Helvetica, sans-serif; }
-}
-
-@layer utilities {
-  .font-mono { font-family: 'Courier New', Courier, monospace; }
-  .eyebrow { @apply mb-5 font-mono text-xs uppercase tracking-[.2em] text-primary; }
-  .section-title { @apply text-5xl font-black leading-[.9] tracking-[-.06em] md:text-7xl; }
-  .text-outline { color: transparent; -webkit-text-stroke: 1px oklch(0.96 0.01 90); }
-  .grain { position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); }
-  .pulse-dot { @apply size-2 rounded-full bg-primary; box-shadow: 0 0 0 0 oklch(0.87 0.19 125 / .7); animation: pulse 2s infinite; }
-  .skill-bar { width: var(--skill-width); animation: grow 1.2s ease-out both; }
-  .project-card { transition: transform .35s ease, border-color .35s ease, background .35s ease; }
-  .project-card:hover { transform: translateY(-4px); border-color: oklch(0.87 0.19 125 / .55); background: oklch(0.19 0.025 270); }
-  @keyframes grow { from { width: 0; } to { width: var(--skill-width); } }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
-}
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+:root{--bg:#F5F3ED;--fg:#172B25;--green:#183D32;--green2:#668576;--accent:#E8BC59;--surface:#E9EAE2;--card:#FFFFFF}
+.dark{--bg:#101B17;--fg:#F5F3ED;--green:#8DB09E;--green2:#668576;--surface:#183D32;--card:#172B25}
+@theme inline{--color-bg:var(--bg);--color-fg:var(--fg);--color-green:var(--green);--color-green2:var(--green2);--color-accent:var(--accent);--color-surface:var(--surface);--color-card:var(--card);--font-sans:var(--font-geist),system-ui,sans-serif;--font-serif:var(--font-fraunces),Georgia,serif;--font-mono:var(--font-plex),ui-monospace,monospace}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-x:hidden}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.flow{stroke-dasharray:4 6;animation:dash 2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-20}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.flow{animation:none}}
