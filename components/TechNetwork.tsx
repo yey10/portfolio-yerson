@@ -10,12 +10,14 @@ const hubs = [
 ];
 const links: [string, string][] = [...hubs.flatMap(h => h.techs.map(t => [h.id, t] as [string, string])), ["Automation", "Odoo"], ["Infrastructure", "Odoo"]];
 const pos: Record<string, { x: number; y: number; dy: number }> = { Odoo: { x: 560, y: 230, dy: 16 } };
+// Redondeo: evita diferencias de precisión float entre servidor y cliente (hydration mismatch)
+const rd = (n: number) => Math.round(n * 100) / 100;
 hubs.forEach(h => {
   pos[h.id] = { x: h.x, y: h.y, dy: 0 };
   const n = h.techs.length, spread = n > 5 ? 270 : 150, r = n > 5 ? 105 : 90;
   h.techs.forEach((t, k) => {
     const a = ((h.out - spread / 2 + (n > 1 ? (k * spread) / (n - 1) : 0)) * Math.PI) / 180;
-    pos[t] = { x: h.x + r * Math.cos(a), y: h.y + r * Math.sin(a), dy: Math.sin(a) > 0 ? 17 : -10 };
+    pos[t] = { x: rd(h.x + r * Math.cos(a)), y: rd(h.y + r * Math.sin(a)), dy: Math.sin(a) > 0 ? 17 : -10 };
   });
 });
 const isHub = (id: string) => hubs.some(h => h.id === id);
